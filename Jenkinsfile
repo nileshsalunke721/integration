@@ -1,12 +1,10 @@
 pipeline{
 	agent any
 	
-	environment{
-		PYTHON="C:\\Users\\Lenovo\\AppData\\Local\\Programs\\Python\\Python314\\python.exe"
-	}
+	
 
     triggers{
-        cron('H/1 * * * *')
+        cron('*/1 * * * *')
     }
 	
 	stages{
@@ -16,19 +14,26 @@ pipeline{
             }
 		}
 		
-		stage("installing dependencies"){
-			steps{
-                bat """
-				%PYTHON% -m pip install -r requirements.txt
-			    """
+        stage("stop and remove container"){
+            steps{
+                bat "docker stop container1 || true"
+                bat "docker rm container1 || true"
             }
-		}
+        }
+
+		stage("build image"){
+            steps{
+                bat "docker build -t image1 ."
+            }
+        }
+
+        stage("run container"){
+            steps{
+                bat "docker run -d -p 8502:8501 --name container1 image1"
+            }
+        }
 		
-		stage("extract data"){
-			steps{
-                bat "%PYTHON% extract.py"
-            }
-		}
+		
 	}
 	
 	post{
