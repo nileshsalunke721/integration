@@ -4,7 +4,7 @@ pipeline{
 	
 
     triggers{
-        cron('*/1 * * * *')
+        cron('*/5 * * * *')
     }
 	
 	stages{
@@ -29,7 +29,7 @@ pipeline{
 
         stage("run container"){
             steps{
-                bat "docker run -d -p 8502:8501 --name container1 image1"
+                bat "docker run -d -p 8502:8501 image1"
             }
         }
 		
