@@ -14,12 +14,12 @@ pipeline{
             }
 		}
 		
-        stage("stop and remove container"){
-            steps{
-                bat 'for /f %%i in (\'docker images -a -q\') do docker rmi -f %%i'
-                bat 'for /f %%i in (\'docker ps -a -q\') do docker rm -f %%i'
-            }
-        }
+        // stage("stop and remove container"){
+        //     steps{
+        //         bat 'for /f %%i in (\'docker images -a -q\') do docker rmi -f %%i'
+        //         bat 'for /f %%i in (\'docker ps -a -q\') do docker rm -f %%i'
+        //     }
+        // }
 
 		stage("build image"){
             steps{
