@@ -16,10 +16,8 @@ pipeline{
 		
         stage("stop and remove container"){
             steps{
-                bat "docker rmi -f $(docker images -a -q)"
-                bat "docker rm -f $(docker ps -a -q)"
-
-               
+                bat 'for /f %%i in (\'docker ps -a -q\') do docker rm -f %%i'
+                bat 'for /f %%i in (\'docker images -a -q\') do docker rmi -f %%i'
             }
         }
 
