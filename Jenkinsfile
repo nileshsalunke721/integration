@@ -4,22 +4,21 @@ pipeline{
 	
 
     triggers{
-        cron('*/5 * * * *')
+        cron('*/2 * * * *')
     }
 	
 	stages{
-		stage("checkout code"){
-            steps{
-			    git url : "https://github.com/nileshsalunke721/integration.git", branch : "main"
-            }
-		}
-		
-        // stage("stop and remove container"){
+		// stage("checkout code"){
         //     steps{
-        //         bat 'for /f %%i in (\'docker images -a -q\') do docker rmi -f %%i'
-        //         bat 'for /f %%i in (\'docker ps -a -q\') do docker rm -f %%i'
+		// 	    git url : "https://github.com/nileshsalunke721/integration.git", branch : "main"
         //     }
-        // }
+		// }
+		
+        stage("stop and remove container"){
+            steps{
+                bat 'for /f %%i in (\'docker ps -a -q\') do docker rm -f %%i'
+            }
+        }
 
 		stage("build image"){
             steps{
