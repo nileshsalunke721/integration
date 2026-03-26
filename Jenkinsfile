@@ -19,7 +19,7 @@ pipeline{
 		stage("installing dependencies"){
 			steps{
                 bat """
-				%PYTHON% -m pip install requirements.txt
+				%PYTHON% -m pip install -r requirements.txt
 			    """
             }
 		}
