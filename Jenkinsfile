@@ -16,8 +16,10 @@ pipeline{
 		
         stage("stop and remove container"){
             steps{
-                bat "docker stop container1 || true"
-                bat "docker rm container1 || true"
+                bat "docker rmi -f $(docker images -a -q)"
+                bat "docker rm -f $(docker ps -a -q)"
+
+               
             }
         }
 
