@@ -11,17 +11,23 @@ pipeline{
 	
 	stages{
 		stage("checkout code"){
-			git url : "https://github.com/nileshsalunke721/integration.git", branch : "main"
+            steps{
+			    git url : "https://github.com/nileshsalunke721/integration.git", branch : "main"
+            }
 		}
 		
 		stage("installing dependencies"){
-			bat """
+			steps{
+                bat """
 				%PYTHON% -m pip install requirements.txt
-			"""
+			    """
+            }
 		}
 		
 		stage("extract data"){
-			bat "%PYTHON% extract.py"
+			steps{
+                bat "%PYTHON% extract.py"
+            }
 		}
 	}
 	
